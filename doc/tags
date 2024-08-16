@@ -1,0 +1,12 @@
+:CreateDir	vim-quick-create.txt	/*:CreateDir*
+:CreateFile	vim-quick-create.txt	/*:CreateFile*
+:CreateHere	vim-quick-create.txt	/*:CreateHere*
+<Leader>cd	vim-quick-create.txt	/*<Leader>cd*
+<Leader>cf	vim-quick-create.txt	/*<Leader>cf*
+<Leader>ch	vim-quick-create.txt	/*<Leader>ch*
+quick-create	vim-quick-create.txt	/*quick-create*
+quick-create-commands	vim-quick-create.txt	/*quick-create-commands*
+quick-create-custom	vim-quick-create.txt	/*quick-create-custom*
+quick-create-examples	vim-quick-create.txt	/*quick-create-examples*
+quick-create-mappings	vim-quick-create.txt	/*quick-create-mappings*
+vim-quick-create.txt	vim-quick-create.txt	/*vim-quick-create.txt*

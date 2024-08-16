@@ -1,0 +1,57 @@
+*vim-quick-create.txt*  Quickly create files and directories
+
+Author:  Your Name <your@email.com>
+License: Same terms as Vim itself (see |license|)
+
+INTRODUCTION                                    *quick-create*
+
+This plugin provides commands and mappings to quickly create files and directories.
+
+COMMANDS                                        *quick-create-commands*
+
+:CreateFile {path}                              *:CreateFile*
+        Create a new file at the specified path. If the directory doesn't
+        exist, it will be created.
+
+:CreateDir {path}                               *:CreateDir*
+        Create a new directory at the specified path.
+
+:CreateHere {filename}                          *:CreateHere*
+        Create a new file in the directory of the current buffer.
+
+MAPPINGS                                        *quick-create-mappings*
+
+<Leader>cf                                      *<Leader>cf*
+        Prompt to create a new file (mapped to |:CreateFile|)
+
+<Leader>cd                                      *<Leader>cd*
+        Prompt to create a new directory (mapped to |:CreateDir|)
+
+<Leader>ch                                      *<Leader>ch*
+        Prompt to create a new file in the current directory (mapped to |:CreateHere|)
+
+Note: <Leader> is usually the '\' key. See |mapleader| for more information.
+
+CUSTOMIZATION                                   *quick-create-custom*
+
+To change the default mappings, add lines like these to your |vimrc|:
+
+    nmap <Leader>nf <Plug>QuickCreateFile
+    nmap <Leader>nd <Plug>QuickCreateDir
+    nmap <Leader>nh <Plug>QuickCreateHere
+
+EXAMPLES                                        *quick-create-examples*
+
+Create a new file:
+    :CreateFile ~/projects/new_project/main.js
+    or press <Leader>cf and type the path
+
+Create a new directory:
+    :CreateDir ~/projects/new_project/src
+    or press <Leader>cd and type the path
+
+Create a new file in the current directory:
+    :CreateHere config.json
+    or press <Leader>ch and type the filename
+
+ vim:tw=78:et:ft=help:norl:
