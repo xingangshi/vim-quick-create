@@ -3,12 +3,23 @@
 Author:  Your Name <your@email.com>
 License: Same terms as Vim itself (see |license|)
 
-INTRODUCTION                                    *vim-quick-create*
+==============================================================================
+CONTENTS                                            *vim-quick-create-contents*
+
+1. Introduction ................. |vim-quick-create-intro|
+2. Commands ..................... |vim-quick-create-commands|
+3. Mappings ..................... |vim-quick-create-mappings|
+4. Quick Menu ................... |vim-quick-create-menu|
+5. Configuration ................ |vim-quick-create-config|
+
+==============================================================================
+1. Introduction                                     *vim-quick-create-intro*
 
 This plugin provides quick file and directory creation, deletion, and renaming
 functionality, as well as a toggle for the file explorer.
 
-COMMANDS                                        *vim-quick-create-commands*
+==============================================================================
+2. Commands                                         *vim-quick-create-commands*
 
 :CreateFile {path}                               *:CreateFile*
     Create a new file at the specified path.
@@ -40,7 +51,11 @@ COMMANDS                                        *vim-quick-create-commands*
 :QuickCreateHere                                 *:QuickCreateHere*
     Enter command mode to create a new file in the current directory.
 
-MAPPINGS                                        *vim-quick-create-mappings*
+:QuickMenu                                       *:QuickMenu*
+    Open the Quick Create Menu for easy access to all plugin functionalities.
+
+==============================================================================
+3. Mappings                                         *vim-quick-create-mappings*
 
 The plugin provides the following default mappings:
 
@@ -51,6 +66,7 @@ The plugin provides the following default mappings:
 <Leader>dp   Delete a file or directory
 <Leader>dc   Delete the current file
 <Leader>rf   Rename a file
+<Leader>qm   Open the Quick Create Menu
 
 These mappings can be customized by mapping to the corresponding <Plug> mappings:
 
@@ -61,15 +77,34 @@ These mappings can be customized by mapping to the corresponding <Plug> mappings
 <Plug>DeletePath
 <Plug>DeleteCurrent
 <Plug>RenameFile
+<Plug>QuickMenu
 
 For example, to change the mapping for creating a file:
 >
     nmap <Leader>nf <Plug>QuickCreateFile
 <
 
-CONFIGURATION                                   *vim-quick-create-config*
+==============================================================================
+4. Quick Menu                                       *vim-quick-create-menu*
 
-g:netrw_winsize                                 *g:netrw_winsize*
+The Quick Menu provides easy access to all plugin functionalities:
+
+1. Create File
+2. Create Directory
+3. Create File Here
+4. Toggle Explorer
+5. Delete Path
+6. Delete Last Opened File
+7. Rename File
+8. Rename Current File
+
+Use number keys or <CR> to select an option, 'q' to close the menu.
+
+==============================================================================
+5. Configuration                                    *vim-quick-create-config*
+
+g:netrw_winsize                                  *g:netrw_winsize*
     Set the width of the file explorer window. Default is 25.
 
- vim:tw=78:ts=8:ft=help:norl:
+==============================================================================
+vim:tw=78:ts=8:ft=help:norl:
