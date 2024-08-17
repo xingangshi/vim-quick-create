@@ -22,7 +22,7 @@ endfunction
 " File and directory operations
 function! s:QuickCreate(path, is_directory) abort
   let l:full_path = expand(a:path)
-  
+
   if a:is_directory
     call mkdir(l:full_path, 'p')
     call s:EchoMessage("Directory created: " . l:full_path)
@@ -53,7 +53,6 @@ function! s:DeleteFileOrDirectory(path)
     return
   endif
   call s:EchoMessage("Deleted: " . l:path)
-  call s:RefreshFileExplorer()
 endfunction
 
 function! s:RenameFileOrDirectory()
@@ -64,32 +63,30 @@ function! s:RenameFileOrDirectory()
   else
     call s:EchoMessage("Failed to rename")
   endif
-  call s:RefreshFileExplorer()
 endfunction
 
 " File explorer functions
 function! s:ToggleFileExplorer()
-  if exists("t:expl_buf_num")
-    let expl_win_num = bufwinnr(t:expl_buf_num)
-    if expl_win_num != -1
-      let cur_win_nr = winnr()
-      exec expl_win_num . 'wincmd w'
-      close
-      exec cur_win_nr . 'wincmd w'
-      unlet t:expl_buf_num
-    else
-      unlet t:expl_buf_num
-    endif
+  if exists("g:loaded_nerd_tree")
+    NERDTreeToggle
   else
-    exec '1wincmd w'
-    Vexplore
-    let t:expl_buf_num = bufnr("%")
-  endif
-endfunction
-
-function! s:RefreshFileExplorer()
-  if exists(":Lexplore")
-    Lexplore
+    " File explorer functions
+    if exists("t:expl_buf_num")
+      let expl_win_num = bufwinnr(t:expl_buf_num)
+      if expl_win_num != -1
+        let cur_win_nr = winnr()
+        exec expl_win_num . 'wincmd w'
+        close
+        exec cur_win_nr . 'wincmd w'
+        unlet t:expl_buf_num
+      else
+        unlet t:expl_buf_num
+      endif
+    else
+      exec '1wincmd w'
+      Vexplore
+      let t:expl_buf_num = bufnr("%")
+    endif
   endif
 endfunction
 
@@ -135,6 +132,97 @@ if !hasmapto('<Plug>DeleteCurrent')
 endif
 if !hasmapto('<Plug>RenameFile')
   nmap <unique> <Leader>rf <Plug>RenameFile
+endif
+
+" Global variable to store all quick menu buffer numbers
+let g:quick_menu_bufnrs = []
+
+" Menu function
+function! s:OpenQuickMenu()
+  " Close all existing menus
+  call s:CloseAllQuickMenus()
+
+  let options = [
+        \ '1. Create File',
+        \ '2. Create Directory',
+        \ '3. Create File Here',
+        \ '4. Toggle Explorer',
+        \ '5. Delete Path',
+        \ '6. Delete Last Opened File',
+        \ '7. Rename File',
+        \ '8. Rename Current File'
+        \ ]
+
+  " Open a new window at the bottom
+  botright 10new
+  setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile nowrap
+  setlocal nonumber norelativenumber signcolumn=no
+
+  " Store the buffer number of the menu
+  call add(g:quick_menu_bufnrs, bufnr('%'))
+
+  call setline(1, "Quick Create Menu")
+  call setline(2, "================")
+  call setline(3, "")
+  call setline(4, options)
+
+  " Set syntax highlighting
+  syn match QuickMenuTitle /^Quick Create Menu$/
+  syn match QuickMenuOption /^\d\+\./
+  hi def link QuickMenuTitle Title
+  hi def link QuickMenuOption Identifier
+
+  " Set mappings
+  nnoremap <buffer> <CR> :call <SID>MenuHandler(line('.'))<CR>
+  nnoremap <buffer> q :call <SID>CloseAllQuickMenus()<CR>
+
+  " Add number key mappings
+  for i in range(1, 8)
+    execute 'nnoremap <buffer> ' . i . ' :call <SID>MenuHandler(' . (i+3) . ')<CR>'
+  endfor
+
+  " Move cursor to the first option
+  normal! 4G
+
+  " Set buffer name
+  file Quick\ Create\ Menu
+endfunction
+
+function! s:CloseAllQuickMenus()
+  for bufnr in g:quick_menu_bufnrs
+    if bufexists(bufnr)
+      execute 'bwipeout! ' . bufnr
+    endif
+  endfor
+  let g:quick_menu_bufnrs = []
+endfunction
+
+function! s:MenuHandler(line_number)
+  let selected = a:line_number - 3
+  call s:CloseAllQuickMenus()
+  if selected == 1
+    call feedkeys(":CreateFile ", "n")
+  elseif selected == 2
+    call feedkeys(":CreateDir ", "n")
+  elseif selected == 3
+    call feedkeys(":CreateHere ", "n")
+  elseif selected == 4
+    ToggleExplorer
+  elseif selected == 5
+    call feedkeys(":DeletePath ", "n")
+  elseif selected == 6
+    call s:DeleteLastOpenedFile()
+  elseif selected == 7
+    RenameFile
+  elseif selected == 8
+    RenameCurrentFile
+  endif
+endfunction
+
+command! -nargs=0 QuickMenu call s:OpenQuickMenu()
+nnoremap <unique> <script> <Plug>QuickMenu :QuickMenu<CR>
+if !hasmapto('<Plug>QuickMenu')
+  nmap <unique> <Leader>qm <Plug>QuickMenu
 endif
 
 let &cpo = s:save_cpo
