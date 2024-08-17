@@ -3,55 +3,73 @@
 Author:  Your Name <your@email.com>
 License: Same terms as Vim itself (see |license|)
 
-INTRODUCTION                                    *quick-create*
+INTRODUCTION                                    *vim-quick-create*
 
-This plugin provides commands and mappings to quickly create files and directories.
+This plugin provides quick file and directory creation, deletion, and renaming
+functionality, as well as a toggle for the file explorer.
 
-COMMANDS                                        *quick-create-commands*
+COMMANDS                                        *vim-quick-create-commands*
 
-:CreateFile {path}                              *:CreateFile*
-        Create a new file at the specified path. If the directory doesn't
-        exist, it will be created.
+:CreateFile {path}                               *:CreateFile*
+    Create a new file at the specified path.
 
-:CreateDir {path}                               *:CreateDir*
-        Create a new directory at the specified path.
+:CreateDir {path}                                *:CreateDir*
+    Create a new directory at the specified path.
 
-:CreateHere {filename}                          *:CreateHere*
-        Create a new file in the directory of the current buffer.
+:CreateHere {filename}                           *:CreateHere*
+    Create a new file in the current directory.
 
-MAPPINGS                                        *quick-create-mappings*
+:ToggleExplorer                                  *:ToggleExplorer*
+    Toggle the file explorer window.
 
-<Leader>cf                                      *<Leader>cf*
-        Prompt to create a new file (mapped to |:CreateFile|)
+:DeletePath {path}                               *:DeletePath*
+    Delete the file or directory at the specified path.
 
-<Leader>cd                                      *<Leader>cd*
-        Prompt to create a new directory (mapped to |:CreateDir|)
+:DeleteCurrent                                   *:DeleteCurrent*
+    Delete the current file.
 
-<Leader>ch                                      *<Leader>ch*
-        Prompt to create a new file in the current directory (mapped to |:CreateHere|)
+:RenameFile                                      *:RenameFile*
+    Rename the current file or a specified file.
 
-Note: <Leader> is usually the '\' key. See |mapleader| for more information.
+:QuickCreateFile                                 *:QuickCreateFile*
+    Enter command mode to create a new file.
 
-CUSTOMIZATION                                   *quick-create-custom*
+:QuickCreateDir                                  *:QuickCreateDir*
+    Enter command mode to create a new directory.
 
-To change the default mappings, add lines like these to your |vimrc|:
+:QuickCreateHere                                 *:QuickCreateHere*
+    Enter command mode to create a new file in the current directory.
 
+MAPPINGS                                        *vim-quick-create-mappings*
+
+The plugin provides the following default mappings:
+
+<Leader>cf   Create a new file
+<Leader>cd   Create a new directory
+<Leader>ch   Create a new file in the current directory
+<Leader>te   Toggle file explorer
+<Leader>dp   Delete a file or directory
+<Leader>dc   Delete the current file
+<Leader>rf   Rename a file
+
+These mappings can be customized by mapping to the corresponding <Plug> mappings:
+
+<Plug>QuickCreateFile
+<Plug>QuickCreateDir
+<Plug>QuickCreateHere
+<Plug>ToggleExplorer
+<Plug>DeletePath
+<Plug>DeleteCurrent
+<Plug>RenameFile
+
+For example, to change the mapping for creating a file:
+>
     nmap <Leader>nf <Plug>QuickCreateFile
-    nmap <Leader>nd <Plug>QuickCreateDir
-    nmap <Leader>nh <Plug>QuickCreateHere
+<
 
-EXAMPLES                                        *quick-create-examples*
+CONFIGURATION                                   *vim-quick-create-config*
 
-Create a new file:
-    :CreateFile ~/projects/new_project/main.js
-    or press <Leader>cf and type the path
+g:netrw_winsize                                 *g:netrw_winsize*
+    Set the width of the file explorer window. Default is 25.
 
-Create a new directory:
-    :CreateDir ~/projects/new_project/src
-    or press <Leader>cd and type the path
-
-Create a new file in the current directory:
-    :CreateHere config.json
-    or press <Leader>ch and type the filename
-
- vim:tw=78:et:ft=help:norl:
+ vim:tw=78:ts=8:ft=help:norl:
