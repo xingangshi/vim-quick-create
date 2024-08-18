@@ -38,6 +38,10 @@ function! s:QuickCreate(path, is_directory) abort
 endfunction
 
 function! s:QuickCreateHere(filename) abort
+  if a:filename =~ '/'
+   call s:EchoMessage("Error: Please enter only a filename, not a path.")
+   return
+  endif
   let l:path = expand('%:p:h') . '/' . a:filename
   call s:QuickCreate(l:path, 0)
 endfunction
@@ -53,6 +57,26 @@ function! s:DeleteFileOrDirectory(path)
     return
   endif
   call s:EchoMessage("Deleted: " . l:path)
+endfunction
+
+function! s:DeleteLastOpenedFile()
+  " 获取最近打开的文件列表
+  let l:history = get(g:, 'viminfo', [])
+  if len(l:history) > 0
+    " 获取最后一个打开的文件路径
+    call s:EchoMessage("Error: Last ." . l:history)
+    let last_opened_file = l:history[-1][1]
+    " 确保获取的路径是绝对路径
+    let last_opened_file = expand(last_opened_file)
+    " 检查文件是否存在
+    if filereadable(last_opened_file)
+      call s:DeleteFileOrDirectory(last_opened_file)
+    else
+      call s:EchoMessage("Error: Last opened file does not exist.")
+    endif
+  else
+    call s:EchoMessage("Error: No last opened file to delete.")
+  endif
 endfunction
 
 function! s:RenameFileOrDirectory()
