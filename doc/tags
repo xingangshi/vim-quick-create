@@ -6,11 +6,14 @@
 :QuickCreateDir	vim-quick-create.txt	/*:QuickCreateDir*
 :QuickCreateFile	vim-quick-create.txt	/*:QuickCreateFile*
 :QuickCreateHere	vim-quick-create.txt	/*:QuickCreateHere*
+:QuickMenu	vim-quick-create.txt	/*:QuickMenu*
 :RenameFile	vim-quick-create.txt	/*:RenameFile*
 :ToggleExplorer	vim-quick-create.txt	/*:ToggleExplorer*
 g:netrw_winsize	vim-quick-create.txt	/*g:netrw_winsize*
-vim-quick-create	vim-quick-create.txt	/*vim-quick-create*
 vim-quick-create-commands	vim-quick-create.txt	/*vim-quick-create-commands*
 vim-quick-create-config	vim-quick-create.txt	/*vim-quick-create-config*
+vim-quick-create-contents	vim-quick-create.txt	/*vim-quick-create-contents*
+vim-quick-create-intro	vim-quick-create.txt	/*vim-quick-create-intro*
 vim-quick-create-mappings	vim-quick-create.txt	/*vim-quick-create-mappings*
+vim-quick-create-menu	vim-quick-create.txt	/*vim-quick-create-menu*
 vim-quick-create.txt	vim-quick-create.txt	/*vim-quick-create.txt*

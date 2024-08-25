@@ -87,16 +87,18 @@ For example, to change the mapping for creating a file:
 ==============================================================================
 4. Quick Menu                                       *vim-quick-create-menu*
 
+
+<Leader>qm  Open the Quick Create Menu
+
 The Quick Menu provides easy access to all plugin functionalities:
 
-1. Create File
-2. Create Directory
-3. Create File Here
-4. Toggle Explorer
-5. Delete Path
-6. Delete Last Opened File
-7. Rename File
-8. Rename Current File
+1. Create File             - cf
+2. Create Directory        - cd
+3. Create File Here        - ch
+4. Toggle Explorer         - te
+5. Delete Path             - dp
+6. Delete Last Opened File - dc
+7. Rename File             - rf
 
 Use number keys or <CR> to select an option, 'q' to close the menu.
 

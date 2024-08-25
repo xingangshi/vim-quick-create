@@ -1,5 +1,5 @@
 " vim-quick-create.vim - Quickly create files and directories
-" Maintainer:   Your Name <your@email.com>
+" Maintainer:   Panshi <vincentsxg@gmail.com>
 " Version:      1.3
 " License:      VIM License
 
@@ -167,14 +167,13 @@ function! s:OpenQuickMenu()
   call s:CloseAllQuickMenus()
 
   let options = [
-        \ '1. Create File',
-        \ '2. Create Directory',
-        \ '3. Create File Here',
-        \ '4. Toggle Explorer',
-        \ '5. Delete Path',
-        \ '6. Delete Last Opened File',
-        \ '7. Rename File',
-        \ '8. Rename Current File'
+        \ '1. Create File             - cf',
+        \ '2. Create Directory        - cd',
+        \ '3. Create File Here        - ch',
+        \ '4. Toggle Explorer         - te',
+        \ '5. Delete Path             - dp',
+        \ '6. Delete Last Opened File - dc',
+        \ '7. Rename File             - rf',
         \ ]
 
   " Open a new window at the bottom
@@ -238,8 +237,6 @@ function! s:MenuHandler(line_number)
     call s:DeleteLastOpenedFile()
   elseif selected == 7
     RenameFile
-  elseif selected == 8
-    RenameCurrentFile
   endif
 endfunction
 
